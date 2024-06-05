@@ -1,11 +1,12 @@
 // 導入時就自動轉為JS資料格式
 import products from '@/data/Product.json';
+import styles from '@/styles/product-table.module.css';
 
 export default function ProductTable() {
   console.log(products);
   return (
     <>
-      <table>
+      <table className={styles['my-table']}>
         <thead>
           <tr>
             <th>ID</th>
@@ -29,8 +30,8 @@ export default function ProductTable() {
           })}
         </tbody>
       </table>
-      {/* 這種style只能在當前的頁面作用 */}
-      <style jsx>
+      {/* 這種style只能在當前的作用 */}
+      {/* <style jsx>
         {`
           table {
             font-family: Arial, Helvetica, sans-serif;
@@ -60,7 +61,7 @@ export default function ProductTable() {
             color: white;
           }
         `}
-      </style>
+      </style> */}
     </>
   );
 }
