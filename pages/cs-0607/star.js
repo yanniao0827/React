@@ -4,6 +4,7 @@ import styles from '@/styles/star.module.css';
 
 export default function Star() {
   const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
   return (
     <>
       <h1>星星評分範例</h1>
@@ -19,10 +20,20 @@ export default function Star() {
                 onClick={() => {
                   setRating(score);
                 }}
+                onMouseEnter={() => {
+                  setHoverRating(score);
+                }}
+                onMouseLeave={() => {
+                  setHoverRating(0);
+                }}
               >
                 {' '}
                 <span
-                  className={score <= rating ? styles['on'] : styles['off']}
+                  className={
+                    score <= rating || score <= hoverRating
+                      ? styles['on']
+                      : styles['off']
+                  }
                 >
                   &#9733;
                 </span>
