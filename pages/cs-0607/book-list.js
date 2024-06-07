@@ -16,6 +16,16 @@ export default function BookList() {
   });
 
   const [books, setBooks] = useState(initState);
+  const handleToggleFav = (isbn) => {
+    const nextBooks = books.map((v, i) => {
+      // 如果符合(isbn=傳入isbn)，回傳修改其中屬性fav的值作邏輯反相
+      if (v.isbn === isbn) return { ...v, fav: !v.fav };
+      // 否則保持原本的物件值
+      else return v;
+    });
+
+    setBooks(nextBooks);
+  };
   return (
     <>
       <h1>書籍清單</h1>
@@ -36,7 +46,13 @@ export default function BookList() {
                 <td>{v.title}</td>
                 <td>{v.author}</td>
                 <td>
-                  <Image src={bookmarkIcon} alt="" />
+                  <Image
+                    onClick={() => {
+                      handleToggleFav(v.isbn);
+                    }}
+                    src={v.fav ? bookmarkIconFill : bookmarkIcon}
+                    alt=""
+                  />
                 </td>
               </tr>
             );
