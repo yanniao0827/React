@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import data from '@/data/books.json';
+
+// 下面兩者寫法相同，因為undex是索引檔，所以可寫可不寫
+// import Item from './item/index';
 import Item from './item';
 
 export default function List() {
