@@ -1,9 +1,9 @@
 .on {
-  color: gold;
+  color: var(--fill-color);
 }
 
 .off {
-  color: gray;
+  color: var(--empty-color);
 }
 
 .good-style{
