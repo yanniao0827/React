@@ -17,14 +17,14 @@ export default function ChildB({ setDataFromChild }) {
       >
         送資料給Parent
       </button> */}
-      <button
+      {/* <button
         onClick={() => {
           // 方式1: 利用事件處理函式執行
           setDataFromChild(cData);
         }}
       >
         送資料給Child A
-      </button>
+      </button> */}
     </>
   );
 }
