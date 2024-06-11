@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import Star from '@/components/stars';
 
+import { FaHeart, FaWheelchairMove } from 'react-icons/fa6';
+
 export default function StarPage() {
   const [productRating1, setProductRating1] = useState(3);
   const [productRating2, setProductRating2] = useState(0);
@@ -19,6 +21,7 @@ export default function StarPage() {
         onRatingChange={setProductRating1}
         fillColor="tomato"
         emptyColor="black"
+        icon={<FaHeart />}
       />
       <Star
         maxCount={8}
@@ -26,6 +29,7 @@ export default function StarPage() {
         onRatingChange={setProductRating2}
         fillColor="pink"
         emptyColor="black"
+        icon={<FaWheelchairMove />}
       />
     </>
   );

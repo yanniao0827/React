@@ -9,6 +9,7 @@ export default function Star({
   onRatingChange = () => {}, // 點按回傳評分的函式
   fillColor = 'gold',
   emptyColor = 'gray',
+  icon = <>&#9733;</>,
 }) {
   // 記錄點按時的評分，一開始是0分代表沒有評分
   const [rating, setRating] = useState(0);
@@ -59,7 +60,7 @@ export default function Star({
                       : styles['off']
                   }
                 >
-                  &#9733;
+                  {icon}
                 </span>
               </button>
             );
