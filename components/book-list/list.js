@@ -33,9 +33,13 @@ export default function List() {
           </tr>
         </thead>
         <tbody>
-          {books.map((v, i) => {
+          {books.map((book) => {
             return (
-              <Item key={v.isbn} book={v} handleToggleFav={handleToggleFav} />
+              <Item
+                key={book.isbn}
+                book={book}
+                handleToggleFav={handleToggleFav}
+              />
             );
           })}
         </tbody>
