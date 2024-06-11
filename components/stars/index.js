@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // 導入.module.css檔案
 // 與元件在同一個資料夾，比較合適單個元件時的開發使用
 import styles from './star.module.css';
 
 export default function Star({
   maxCount = 5, // 最多可評的分數(幾個星星)
-  initRating = 0, // 初始的評分(一開始點亮幾個星星)
+  currentRating = 0,
+  onRatingChange = () => {}, // 點按回傳評分的函式
 }) {
   // 記錄點按時的評分，一開始是0分代表沒有評分
-  const [rating, setRating] = useState(initRating);
+  const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  useEffect(() => {
+    setRating(currentRating);
+  }, [currentRating]);
 
   return (
     <>
