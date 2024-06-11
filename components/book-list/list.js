@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import Image from 'next/image';
-
-// 範例資料
 import data from '@/data/books.json';
+import Item from './item';
 
-// 實心圖
-import bookmarkIconFill from '@/assets/bookmark-fill.svg';
-// 空心圖
-import bookmarkIcon from '@/assets/bookmark.svg';
-
-export default function BookList() {
+export default function List() {
   // 設定表格的初始狀態，原本的json資料裡面沒有收藏欄，所以用map的方法先抓books資料庫面的資料並且加上fav欄位，並將該欄位的初始狀態設定成false
   const initState = data.map((v, i) => {
     return { ...v, fav: false };
   });
 
+  // 宣告狀態 因為需要加入收藏(畫面上需要改變)，所以導入的資料需要轉化為狀態
   const [books, setBooks] = useState(initState);
   const handleToggleFav = (isbn) => {
     const nextBooks = books.map((v, i) => {
@@ -41,20 +35,7 @@ export default function BookList() {
         <tbody>
           {books.map((v, i) => {
             return (
-              <tr key={v.isbn}>
-                <td>{v.isbn}</td>
-                <td>{v.title}</td>
-                <td>{v.author}</td>
-                <td>
-                  <Image
-                    onClick={() => {
-                      handleToggleFav(v.isbn);
-                    }}
-                    src={v.fav ? bookmarkIconFill : bookmarkIcon}
-                    alt=""
-                  />
-                </td>
-              </tr>
+              <Item key={v.isbn} book={v} handleToggleFav={handleToggleFav} />
             );
           })}
         </tbody>
