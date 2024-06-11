@@ -49,12 +49,9 @@ export default function Star({
               >
                 <span
                   // 判斷星星是否要點亮。如果這個星星的分數(score)小於等於目前的選中的評分(rating)狀態，則套用亮起樣式
-                  style={{
-                    color:
-                      score <= rating || score <= hoverRating
-                        ? fillColor
-                        : emptyColor,
-                  }}
+                  className={
+                    score <= rating || score <= hoverRating ? 'on' : 'off'
+                  }
                 >
                   &#9733;
                 </span>
@@ -63,6 +60,14 @@ export default function Star({
           })}
         <p>你給了{rating}星</p>
       </div>
+      <style jsx>{`
+        .on {
+          color: ${fillColor};
+        }
+        .off {
+          color: ${emptyColor};
+        }
+      `}</style>
     </>
   );
 }
