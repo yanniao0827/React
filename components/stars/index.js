@@ -7,6 +7,8 @@ export default function Star({
   maxCount = 5, // 最多可評的分數(幾個星星)
   currentRating = 0,
   onRatingChange = () => {}, // 點按回傳評分的函式
+  fillColor = 'gold',
+  emptyColor = 'gray',
 }) {
   // 記錄點按時的評分，一開始是0分代表沒有評分
   const [rating, setRating] = useState(0);
@@ -47,11 +49,12 @@ export default function Star({
               >
                 <span
                   // 判斷星星是否要點亮。如果這個星星的分數(score)小於等於目前的選中的評分(rating)狀態，則套用亮起樣式
-                  className={
-                    score <= rating || score <= hoverRating
-                      ? styles['on']
-                      : styles['off']
-                  }
+                  style={{
+                    color:
+                      score <= rating || score <= hoverRating
+                        ? fillColor
+                        : emptyColor,
+                  }}
                 >
                   &#9733;
                 </span>
