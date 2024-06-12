@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { ThemeContext } from '@/context/theme';
+import { useTheme } from '@/hooks/use-theme';
 import { FaRegSun, FaRegMoon } from 'react-icons/fa';
 
 export default function SwitchButton() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useTheme();
   return (
     <>
       <button onClick={toggleTheme}>

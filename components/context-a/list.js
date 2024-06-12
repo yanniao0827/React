@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { ThemeContext } from '@/context/theme';
+import { useTheme } from '@/hooks/use-theme';
 
 export default function List() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   return (
     <>
       <ul className={theme}>
