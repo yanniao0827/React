@@ -1,41 +1,29 @@
-import ProductList from '@/components/checkout/product-list';
+import Link from 'next/link';
 import CartList from '@/components/checkout/cart-list';
-import styles from '@/components/checkout/cart.module.css';
-import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '@/hooks/use-cart';
+import CheckoutLayout from '@/components/checkout/layout';
 
 export default function Cart() {
   const { totalPrice, totalQty } = useCart();
 
   return (
     <>
-      <div className={styles['container']}>
-        <div className={styles['navbar']}>
-          <div className={styles['logo']}>網站Logo</div>
-          <div className={styles['header']}>
-            <h2>購物車範例</h2>
-          </div>
-          <div className={styles['badge']}>
-            <div className={styles['button']}>
-              <FaShoppingCart />
-              <span className={styles['button__badge']}>4</span>
-            </div>
-          </div>
-        </div>
-        <h3>商品列表</h3>
-        <div className={styles['product']}>
-          <ProductList />
-        </div>
-        <h3>購物車</h3>
-        <div className={styles['cart']}>
-          <CartList />
-        </div>
-        <hr />
-        <div>{/* 總數量: {calcTotalQty()} / 總金額: {calcTotalPrice()} */}</div>
-        <div>
-          總數量: {totalQty} / 總金額: {totalPrice}
-        </div>
+      <h1>購物車</h1>
+      <hr />
+      <p>
+        <Link href="/cs-0612/checkout/product">連至商品頁</Link>
+      </p>
+      <CartList />
+      <hr />
+      <div>
+        總數量: {totalQty} / 總金額: {totalPrice}
       </div>
     </>
   );
 }
+
+// 自訂版面的套用語法，可以讓每個頁面套用自己的排版(layout)
+// https://github.com/mfee-react/project-guide/blob/main/project-docs/3.howto-layout.md
+Cart.getLayout = function getLayout(page) {
+  return <CheckoutLayout>{page}</CheckoutLayout>;
+};
