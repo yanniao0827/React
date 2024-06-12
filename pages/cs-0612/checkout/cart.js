@@ -46,6 +46,28 @@ export default function Cart() {
       setItems(nextItems);
     }
   };
+
+  //計算商品價格(for迴圈)
+  const calcTotalPrice = () => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].qty * items[i].price;
+    }
+    return total;
+  };
+
+  //計算商品數量(for迴圈)
+  const calcTotalQty = () => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total += items[i].qty;
+    }
+    return total;
+  };
+
+  // 用陣列迭代方法reduce來計算總金額/總數量
+  const totalQty = items.reduce((acc, v) => acc + v.qty, 0);
+  const totalPrice = items.reduce((acc, v) => acc + v.qty * v.price, 0);
   return (
     <>
       <div className={styles['container']}>
@@ -75,7 +97,12 @@ export default function Cart() {
           />
         </div>
         <hr />
-        <div>總數量: 123 / 總金額: 123000</div>
+        <div>
+          總數量: {calcTotalQty()} / 總金額: {calcTotalPrice()}
+        </div>
+        <div>
+          (陣列迭代)總數量: {totalQty} / (陣列迭代)總金額: {totalPrice}
+        </div>
       </div>
     </>
   );
