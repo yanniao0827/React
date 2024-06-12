@@ -1,14 +1,17 @@
-import { useContext } from 'react';
-import { ThemeContext } from '@/context/theme';
+import List from '@/components/context-a/list';
+// 用於取代a元件的特別元件，可以在不同頁面保持住狀態
+import Link from 'next/link';
 
 export default function Page2() {
-  //2. 在任何⼦元件層級深度，使⽤ useContext 勾⼦讀取它:
-  const value = useContext(ThemeContext);
-
   return (
     <>
-      <h1>Page2-Context範例-a</h1>
-      <p>value = {JSON.stringify(value)}</p>
+      <h1>Page2(Context範例-a)</h1>
+      <List />
+      <hr />
+      <a href="/cs-0612/context-a/page1">Page1(a標記)</a>
+      <br />
+      {/*  用於取代a元件的特別元件，可以在不同頁面保持住狀態 */}
+      <Link href="/cs-0612/context-a/page1">Page1(Link元件)</Link>
     </>
   );
 }
