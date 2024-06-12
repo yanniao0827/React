@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './cart.module.css';
+import { useCart } from '@/hooks/use-cart';
 
-export default function CartList({
-  items,
-  increaseItem,
-  decreaseItem,
-  removeItem,
-}) {
+export default function CartList() {
+  const { items, increaseItem, decreaseItem, removeItem } = useCart();
+
   return (
     <>
       <ul className={styles['list']}>
@@ -26,7 +24,16 @@ export default function CartList({
                 <span>{v.qty}</span>
                 <button
                   onClick={() => {
-                    decreaseItem(v.id);
+                    // 按下此按鈕處理後後，改變的下次數量
+                    const nextQty = v.qty - 1;
+
+                    if (nextQty === 0) {
+                      if (confirm('你確定要移除項目?')) {
+                        removeItem(v.id);
+                      }
+                    } else {
+                      decreaseItem(v.id);
+                    }
                   }}
                 >
                   -
@@ -35,7 +42,9 @@ export default function CartList({
               <div>
                 <button
                   onClick={() => {
-                    removeItem(v.id);
+                    if (confirm('你確定要移除項目?')) {
+                      removeItem(v.id);
+                    }
                   }}
                 >
                   移除

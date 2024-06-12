@@ -1,8 +1,11 @@
 import React from 'react';
 import products from '@/data/Product.json';
 import styles from './cart.module.css';
+import { useCart } from '@/hooks/use-cart';
 
-export default function ProductList({ addItem }) {
+export default function ProductList() {
+  const { addItem } = useCart();
+
   return (
     <>
       <ul className={styles['list']}>
