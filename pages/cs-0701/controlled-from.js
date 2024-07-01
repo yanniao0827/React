@@ -2,17 +2,24 @@ import { useState } from 'react';
 import InputIME from '@/components/controlled-form/input-ime';
 
 export default function ControlledForm() {
+  //輸入框(文字)
   const [inputText, setInputText] = useState('');
+  //輸入框(數字)
   const [inputNumber, setInputNumber] = useState(0);
 
+  //輸入框(日期-文字)
   const [inputDateText, setInputDateText] = useState('');
-
+  //輸入框(日期-物件)
   const dateToString = (date = null) =>
     date instanceof Date ? date.toISOString().split('T')[0] : '';
   const stringToDate = (str = '') => new Date(str);
   const [inputDateObject, setInputDateObject] = useState(
     stringToDate('2024-07-01')
   );
+
+  //輸入框(密碼)
+  const [inputPassword, setInputPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -60,6 +67,21 @@ export default function ControlledForm() {
           value={dateToString(inputDateObject)}
           onChange={(e) => {
             setInputDateObject(stringToDate(e.target.value));
+          }}
+        />
+        <h2>密碼</h2>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          value={inputPassword}
+          onChange={(e) => {
+            setInputPassword(e.target.value);
+          }}
+        />
+        <input
+          type="checkbox"
+          value={showPassword}
+          onChange={(e) => {
+            setShowPassword(e.target.checked);
           }}
         />
       </div>
