@@ -21,6 +21,9 @@ export default function ControlledForm() {
   const [inputPassword, setInputPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  //textarea
+  const [textareaText, setTextareaText] = useState('');
+
   return (
     <>
       <h1>可控表單元件範例</h1>
@@ -82,6 +85,13 @@ export default function ControlledForm() {
           value={showPassword}
           onChange={(e) => {
             setShowPassword(e.target.checked);
+          }}
+        />
+        <h2>文字輸入框(textarea)</h2>
+        <input
+          value={textareaText}
+          onChange={(e) => {
+            setTextareaText(e.target.value);
           }}
         />
       </div>
