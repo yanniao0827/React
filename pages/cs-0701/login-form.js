@@ -36,18 +36,29 @@ export default function LoginForm() {
     const newErrors = { username: '', password: '' };
 
     // 開始檢查
-    if (user.username === '') {
+    if (!user.username === '') {
       newErrors.username = '請填寫帳號';
     }
 
-    if (user.password === '') {
-      newErrors.password = '請填寫密碼';
+    if (user.password.length > 10 || user.password.length < 6) {
+      newErrors.password = '密碼長度需介於6至10個字元';
     }
 
+    if (!user.password) {
+      newErrors.password = '寫密碼';
+    }
     // 檢查完成，設定到狀態中呈現
     setErrors(newErrors);
 
+    const hasErrors = Object.values(newErrors).some((v) => v);
+
+    if (hasErrors) {
+      alert('錯誤');
+      return;
+    }
+
     // 表單檢查 ---END
+    alert('送server');
   };
   return (
     <>
