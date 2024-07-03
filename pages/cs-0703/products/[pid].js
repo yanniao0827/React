@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 // import data from '@/data/products.json';
+import Loader from '@/components/loader';
 
 export default function Detail() {
   //宣告路由
@@ -17,6 +18,9 @@ export default function Detail() {
     price: 0,
     tags: '',
   });
+
+  //設定狀態看資料是否正在載入中，true代表一開始就載入資料，不呈現預設值(id:0)
+  const [isLoading, setIsLoading] = useState(true);
 
   const getProduct = async (pid) => {
     const url =
@@ -37,6 +41,8 @@ export default function Detail() {
       ) {
         // 設定到狀態中 ===> 進入update階段，觸發重新渲染(re-render)
         setProduct(data);
+        // 狀態設定完就可以關閉載入中動畫
+        setIsLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -65,9 +71,16 @@ export default function Detail() {
     <>
       <h1>商品詳細頁</h1>
       <hr />
-      <h2>{product.name}</h2>
-      <p>ID: {product.id}</p>
-      <p>價格: {product.price}</p>
+      {/* 用isLoading進行條件式渲染，決定是要呈現內容還是呈現載入中 */}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h2>{product.name}</h2>
+          <p>ID: {product.id}</p>
+          <p>價格: {product.price}</p>
+        </>
+      )}
     </>
   );
 }
