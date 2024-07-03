@@ -9,17 +9,18 @@ export default function List() {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
+    const url = 'http://localhost:3005/api/my-products';
     try {
-      const url =
-        'https://my-json-server.typicode.com/eyesofkids/json-fake-data/products';
       const res = await fetch(url);
-      const data = await res.json();
+      const resData = await res.json();
 
-      console.log(data);
-      // 設定狀態前先檢查資料類型是否是陣列，做基本保護，如果不是陣列的話，呼叫map會導致崩潰
-      if (Array.isArray(data)) {
-        setProducts(data);
+      if (resData.status === 'success') {
+        if (Array.isArray(resData.data.products)) {
+          setProducts(resData.data.products);
+        }
       }
+      // console.log(data);
+      // 設定狀態前先檢查資料類型是否是陣列，做基本保護，如果不是陣列的話，呼叫map會導致崩潰
     } catch (e) {
       console.error(e);
     }
