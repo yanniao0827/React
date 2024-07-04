@@ -16,6 +16,9 @@ export default function List() {
   const [page, setPage] = useState(1); //目前是第幾頁
   const [perpage, setPerpage] = useState(10);
 
+  // 排序
+  const [orderby, setOrderBy] = useState({ sort: 'id', order: 'asc' });
+
   const getProducts = async (params = {}) => {
     const baseUrl = 'http://localhost:3005/api/my-products';
 
@@ -43,10 +46,10 @@ export default function List() {
   };
 
   useEffect(() => {
-    const params = { page, perpage };
+    const params = { page, perpage, sort: orderby.sort, order: orderby.order };
     getProducts(params);
     //didMount
-  }, [page, perpage]);
+  }, [page, perpage, orderby]);
 
   return (
     <>
@@ -71,11 +74,33 @@ export default function List() {
         下一頁
       </button>
       目前頁面 {page} / 總頁數 {pageCount} / 總筆數: {total}
+      <div>
+        <label>
+          排序
+          <select
+            value={`${orderby.sort},${orderby.order}`}
+            onChange={(e) => {
+              const tv = e.target.value;
+              setOrderBy({
+                sort: tv.split(',')[0],
+                order: tv.split(',')[1],
+              });
+            }}
+          >
+            <option value="id,asc">ID排序(由小到大)</option>
+            <option value="id,desc">ID排序(由大到小)</option>
+            <option value="price,asc">價格排序(由小到大)</option>
+            <option value="price,desc">價格排序(由大到小)</option>
+          </select>
+        </label>
+      </div>
       <ul>
         {products.map((v, i) => {
           return (
             <li key={v.id}>
-              <Link href={`/cs-0703/products/${v.id}`}>{v.name}</Link>
+              <Link href={`/cs-0703/products/${v.id}`}>
+                {v.name}/{v.price}
+              </Link>
             </li>
           );
         })}
