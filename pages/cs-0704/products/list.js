@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 // import data from '@/data/products.json';
 import Link from 'next/link';
+import BS5Pagination from '@/components/common/bs5-pagination';
 
 export default function List() {
   // 宣告狀態為空陣列
@@ -16,13 +17,13 @@ export default function List() {
   const [perpage, setPerpage] = useState(10);
 
   const getProducts = async (params = {}) => {
-    const baseURL = 'http://localhost:3005/api/my-products';
+    const baseUrl = 'http://localhost:3005/api/my-products';
 
     // URLSearchParams是一種查詢字串的物件
     const searchParams = new URLSearchParams(params);
-
     // 生成查詢字串
-    const url = `${baseURL}?${searchParams.toString}`;
+    const url = `${baseUrl}?${searchParams.toString()}`;
+
     try {
       const res = await fetch(url);
       const resData = await res.json();
@@ -49,27 +50,27 @@ export default function List() {
 
   return (
     <>
-      <h1>商品列表</h1>
+      <h1>商品列表頁</h1>
       <hr />
       <button
         onClick={() => {
-          // 最小就是第一頁
-          const nextPage = page - 1 > 1 ? page : 1;
+          // 最小頁面是1(不能小於1)
+          const nextPage = page - 1 > 1 ? page - 1 : 1;
           setPage(nextPage);
         }}
       >
-        前一頁
+        上一頁
       </button>
       <button
         onClick={() => {
-          // 不可以超過最大頁數
+          // 最大頁面是pageCount
           const nextPage = page + 1 < pageCount ? page + 1 : pageCount;
           setPage(nextPage);
         }}
       >
-        後一頁
+        下一頁
       </button>
-      目前頁面：{page}/總頁數{pageCount}/總筆數{total}
+      目前頁面 {page} / 總頁數 {pageCount} / 總筆數: {total}
       <ul>
         {products.map((v, i) => {
           return (
@@ -79,6 +80,16 @@ export default function List() {
           );
         })}
       </ul>
+      <div>
+        {/* 加入分頁列元件 */}
+        <BS5Pagination
+          forcePage={page - 1}
+          onPageChange={(e) => {
+            setPage(e.selected + 1);
+          }}
+          pageCount={pageCount}
+        />
+      </div>
     </>
   );
 }
